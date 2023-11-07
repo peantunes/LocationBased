@@ -7,9 +7,10 @@
 
 import Foundation
 
-class Engine {
+class Engine: ObservableObject {
     lazy var locationManagerProvider: LocationManagerProviding = LocationManagerProvider()
     lazy var notificationProvider: NotificationProviding = NotificationProvider()
+    lazy var placeSearchProvider: PlaceSearchProvider = MapKitPlaceSearchProvider()
     
     lazy var locationBasedService: LocationBasedServicing = LocationBasedService(engine: self)
     
@@ -24,3 +25,4 @@ class Engine {
 extension Engine: HasLocationManagerProvider { }
 extension Engine: HasLocationBasedService { }
 extension Engine: HasNotificationProvider { }
+extension Engine: HasPlaceSearchProvider { }

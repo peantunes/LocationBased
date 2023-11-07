@@ -8,62 +8,100 @@
 import SwiftUI
 import CoreLocation
 
+struct Location: Identifiable {
+    let id: String
+    let coordinates: (latitude: Double, longitude: Double)
+    let name: String
+    let address: String?
+}
+
+struct SearchResult: Identifiable {
+    let id = UUID().uuidString
+    let locations: [Location]
+}
+
 struct ContentView: View {
+    @StateObject private var engine = Engine.shared
+    @State var monitoredPlaces: [LocationRegion] = []
+    @State var search: String = ""
+    @State var searchResult: SearchResult?
+    
     let home = LocationRegion.Coordinates(latitude: 51.13850488543663, longitude: 0.8320904067583412)
     let station = LocationRegion.Coordinates(latitude: 51.14382014251429, longitude: 0.8763060637741393)
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-            Button {
-                Engine.shared.notificationProvider.sendNotification(with: .init(title: "Going to background", body: "App now is dismissed"))
-            } label: {
-                Text("Send notification")
+            Text("Current monitorred areas")
+            List(monitoredPlaces, id:\.name) { item in
+                VStack(alignment: .leading) {
+                    Text(item.name)
+                    Text("\(item.coordinates.latitude), \(item.coordinates.longitude)")
+                        .foregroundStyle(Color.secondary)
+                }
             }
-        }
-        .padding()
-        .task {
-            Engine.shared.locationManagerProvider.requestAccess()
-            
-            Engine.shared.notificationProvider.requestPermission { result in
-                switch result {
-                case .success:
-                    localNotification()
-                    
-                    
-                    Engine.shared.locationBasedService.monitorLocation(latitude: home.latitude, longitude: home.longitude, name: "Home sweet home")
-                    Engine.shared.locationBasedService.monitorLocation(latitude: station.latitude, longitude: station.longitude, name: "Ashford International Station")
-                case .failure(let error):
-                    print(error)
+            .refreshable {
+                monitoredPlaces = engine.locationManagerProvider.currentMonitored()
+            }
+            VStack {
+                HStack {
+                    TextField("places", text: $search)
+                    Button("search") {
+                        engine.placeSearchProvider.searchBy(query: search, regionRestriction: SearchRegionRestriction.all) { result in
+                            switch result {
+                            case .success(let locations):
+                                let searchLocations = locations.places.map(Location.init)
+                                searchResult = SearchResult(locations: searchLocations)
+                            case .failure:
+                                print("no results")
+                            }
+                        }
+                    }
+                    .buttonStyle(.bordered)
                 }
             }
         }
-    }
-    
-    private func localNotification() {
-        Engine.shared.notificationProvider.sendNotification(
-            with: .init(
-                title: "Arrived Home",
-                body: "You are home",
-                region: .init(name: "Home 1",
-                              coordinates: home,
-                              radius: Engine.shared.locationManagerProvider.maximumDistance)))
-        
-        Engine.shared.notificationProvider.sendNotification(
-            with: .init(
-                title: "Simple AFK",
-                body: "We arrived to the station",
-                region: .init(name: "AFK 1",
-                              coordinates: station,
-                              radius: Engine.shared.locationManagerProvider.maximumDistance)))
+        .sheet(item: $searchResult, content: { results in
+            List {
+                ForEach(results.locations) { item in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.name)
+                            Text(item.address ?? "-")
+                                .foregroundStyle(Color.secondary)
+                        }
+                        Spacer()
+                        Button("Add") {
+                            Engine.shared.locationBasedService.monitorLocation(latitude: item.coordinates.latitude, longitude: item.coordinates.longitude, name: item.name)
+                            searchResult = nil
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                }
+            }
+        })
+        .padding()
+        .task {
+            
+            Engine.shared.locationManagerProvider.requestAccess()
+            
+            Engine.shared.notificationProvider.requestPermission { result in
+            }
+            monitoredPlaces = engine.locationManagerProvider.currentMonitored()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+extension Location {
+    init(_ place: PlaceSearchLocation) {
+        self.init(id: UUID().uuidString,
+                  coordinates: (latitude: place.coordinate.latitude, longitude: place.coordinate.longitude),
+                  name: place.name ?? "<no name>",
+                  address: place.address)
     }
 }

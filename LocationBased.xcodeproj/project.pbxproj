@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A89F7C602AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */; };
+		A89F7C622AFA7DF500956F41 /* PlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */; };
 		A8C1671C2AF907CD007E1AC7 /* LocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C1671B2AF907CD007E1AC7 /* LocationBasedApp.swift */; };
 		A8C1671E2AF907CD007E1AC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C1671D2AF907CD007E1AC7 /* ContentView.swift */; };
 		A8C167202AF907CF007E1AC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C1671F2AF907CF007E1AC7 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapKitPlaceSearchProvider.swift; path = ../../../../LocationBased_old/LocationBased/Ports/NotificationProvider/Interface/MapKitPlaceSearchProvider.swift; sourceTree = "<group>"; };
+		A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchProvider.swift; sourceTree = "<group>"; };
 		A8C167182AF907CD007E1AC7 /* LocationBased.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationBased.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C1671B2AF907CD007E1AC7 /* LocationBasedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationBasedApp.swift; sourceTree = "<group>"; };
 		A8C1671D2AF907CD007E1AC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,6 +50,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A89F7C5D2AFA7DB200956F41 /* PlaceSearchProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A89F7C5E2AFA7DC100956F41 /* Interface */,
+				A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */,
+			);
+			path = PlaceSearchProvider;
+			sourceTree = "<group>";
+		};
+		A89F7C5E2AFA7DC100956F41 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
 		A8C1670F2AF907CD007E1AC7 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +118,7 @@
 		A8C1672C2AF9105F007E1AC7 /* Ports */ = {
 			isa = PBXGroup;
 			children = (
+				A89F7C5D2AFA7DB200956F41 /* PlaceSearchProvider */,
 				A8C167382AF91DAE007E1AC7 /* NotificationProvider */,
 				A8C1672D2AF91066007E1AC7 /* LocationManager */,
 			);
@@ -219,8 +241,10 @@
 				A8C1671E2AF907CD007E1AC7 /* ContentView.swift in Sources */,
 				A8C1671C2AF907CD007E1AC7 /* LocationBasedApp.swift in Sources */,
 				A8C1672B2AF907F4007E1AC7 /* LocationBasedService.swift in Sources */,
+				A89F7C622AFA7DF500956F41 /* PlaceSearchProvider.swift in Sources */,
 				A8C167312AF910A7007E1AC7 /* LocationManagerProviding.swift in Sources */,
 				A8C167352AF918A5007E1AC7 /* Engine.swift in Sources */,
+				A89F7C602AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift in Sources */,
 				A8C1672F2AF91073007E1AC7 /* LocationManagerProvider.swift in Sources */,
 				A8C1673B2AF91FF8007E1AC7 /* NotificationProviding.swift in Sources */,
 			);
@@ -352,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LocationBased/Preview Content\"";
-				DEVELOPMENT_TEAM = 666GZ2659S;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LocationBased/Info.plist;
@@ -383,7 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LocationBased/Preview Content\"";
-				DEVELOPMENT_TEAM = 666GZ2659S;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LocationBased/Info.plist;

@@ -30,6 +30,10 @@ class LocationManagerProvider: NSObject, LocationManagerProviding {
         locationManager.startMonitoring(for: region)
     }
     
+    func currentMonitored() -> [LocationRegion] {
+        locationManager.monitoredRegions.compactMap(LocationRegion.init)
+    }
+    
     func requestAccess() {
         locationManager.requestAlwaysAuthorization()
     }
@@ -41,5 +45,18 @@ extension LocationManagerProvider: CLLocationManagerDelegate {
     }
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         delegate?.exitRegion(region.identifier)
+    }
+}
+
+extension LocationRegion {
+    init?(_ region: CLRegion) {
+        guard let circularRegion = region as? CLCircularRegion else { return nil }
+        self.init(name: circularRegion.identifier, coordinates: Coordinates.init(circularRegion.center), radius: circularRegion.radius)
+    }
+}
+
+extension LocationRegion.Coordinates {
+    init(_ location: CLLocationCoordinate2D) {
+        self.init(latitude: location.latitude, longitude: location.longitude)
     }
 }
