@@ -8,7 +8,13 @@
 import Foundation
 
 class Engine: ObservableObject {
-    lazy var locationManagerProvider: LocationManagerProviding = LocationManagerProvider()
+    lazy var locationManagerProvider: LocationManagerProviding = {
+        if #available(iOS 17, *) {
+            return LocationMonitorManager()
+        } else {
+            return LocationManagerProvider()
+        }
+    }()
     lazy var notificationProvider: NotificationProviding = NotificationProvider()
     lazy var placeSearchProvider: PlaceSearchProvider = MapKitPlaceSearchProvider()
     

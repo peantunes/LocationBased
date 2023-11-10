@@ -13,11 +13,16 @@ class MonitorContentObserver: ObservableObject {
     @Published var places: [LocationRegion] = []
     @Published var searchText = ""
     @Published var searchResult: SearchResult?
+    @Published var distance: Double = 100.0
     
     private let engine: Engine
     
     init(engine: Engine) {
         self.engine = engine
+    }
+    
+    var maximumDistance: Double {
+        engine.locationManagerProvider.maximumDistance
     }
     
     func askPermissions() {
@@ -27,7 +32,9 @@ class MonitorContentObserver: ObservableObject {
     }
     
     func refreshResults() {
-        places = engine.locationBasedService.monitoredRegions()
+        Task {
+            places = await engine.locationBasedService.monitoredRegions()
+        }
     }
     
     func delete(at offSets: IndexSet) {
@@ -50,7 +57,7 @@ class MonitorContentObserver: ObservableObject {
     }
     
     func addPlace(place: Location) {
-        engine.locationBasedService.monitorLocation(latitude: place.coordinates.latitude, longitude: place.coordinates.longitude, name: place.name)
+        engine.locationBasedService.monitorLocation(latitude: place.coordinates.latitude, longitude: place.coordinates.longitude, name: place.name, distance: distance)
         searchResult = nil
         searchText = ""
     }

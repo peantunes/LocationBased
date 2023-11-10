@@ -15,6 +15,11 @@ struct LocationRegion {
     let name: String
     let coordinates: Coordinates
     let radius: Double
+    let lastEvent: Date?
+}
+
+struct LocationEvent {
+    
 }
 
 protocol LocationManagerProviding: AnyObject {
@@ -23,13 +28,13 @@ protocol LocationManagerProviding: AnyObject {
     
     func startMonitoring(for locationRegion: LocationRegion)
     func stopMonitoring(for locationRegion: LocationRegion)
-    func currentMonitored() -> [LocationRegion]
+    func currentMonitored() async -> [LocationRegion]
     func requestAccess()
 }
 
 protocol LocationManagerDelegate: AnyObject {
     func enterRegion(_ name: String)
-    func exitRegion(_ name: String)
+    func exitRegion(_ name: String, duration: TimeInterval?)
 }
 
 protocol HasLocationManagerProvider {

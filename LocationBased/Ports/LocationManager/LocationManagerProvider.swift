@@ -19,7 +19,7 @@ class LocationManagerProvider: NSObject, LocationManagerProviding {
     }
     
     var maximumDistance: Double {
-        100 // locationManager.maximumRegionMonitoringDistance
+        2000 // locationManager.maximumRegionMonitoringDistance
     }
     
     func startMonitoring(for locationRegion: LocationRegion) {
@@ -30,7 +30,7 @@ class LocationManagerProvider: NSObject, LocationManagerProviding {
         locationManager.stopMonitoring(for: CLCircularRegion(locationRegion))
     }
     
-    func currentMonitored() -> [LocationRegion] {
+    func currentMonitored() async -> [LocationRegion] {
         locationManager.monitoredRegions.compactMap(LocationRegion.init)
     }
     
@@ -44,14 +44,16 @@ extension LocationManagerProvider: CLLocationManagerDelegate {
         delegate?.enterRegion(region.identifier)
     }
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        delegate?.exitRegion(region.identifier)
+        delegate?.exitRegion(region.identifier, duration: nil)
     }
 }
 
 extension LocationRegion {
     init?(_ region: CLRegion) {
         guard let circularRegion = region as? CLCircularRegion else { return nil }
-        self.init(name: circularRegion.identifier, coordinates: Coordinates.init(circularRegion.center), radius: circularRegion.radius)
+        self.init(name: circularRegion.identifier, coordinates: Coordinates.init(circularRegion.center), 
+                  radius: circularRegion.radius,
+                  lastEvent: nil)
     }
 }
 

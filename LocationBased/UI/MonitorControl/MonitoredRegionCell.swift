@@ -19,5 +19,5 @@ struct MonitoredRegionCell: View {
 }
 
 #Preview {
-    MonitoredRegionCell(location: .init(name: "Simple", coordinates: .init(latitude: 0.0, longitude: 0.0), radius: 1.0))
+    MonitoredRegionCell(location: .init(name: "Simple", coordinates: .init(latitude: 0.0, longitude: 0.0), radius: 1.0, lastEvent: Date().addingTimeInterval(-3600)))
 }
