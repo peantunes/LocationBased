@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A89F7C602AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */; };
 		A89F7C622AFA7DF500956F41 /* PlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */; };
+		A89F7C662AFBA58800956F41 /* MonitorControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C652AFBA58800956F41 /* MonitorControlView.swift */; };
+		A89F7C682AFBA61400956F41 /* MonitorContentObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C672AFBA61400956F41 /* MonitorContentObserver.swift */; };
+		A89F7C6A2AFBAFB500956F41 /* MonitoredRegionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C692AFBAFB500956F41 /* MonitoredRegionCell.swift */; };
 		A8C1671C2AF907CD007E1AC7 /* LocationBasedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C1671B2AF907CD007E1AC7 /* LocationBasedApp.swift */; };
 		A8C1671E2AF907CD007E1AC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C1671D2AF907CD007E1AC7 /* ContentView.swift */; };
 		A8C167202AF907CF007E1AC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C1671F2AF907CF007E1AC7 /* Assets.xcassets */; };
@@ -24,6 +27,9 @@
 /* Begin PBXFileReference section */
 		A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapKitPlaceSearchProvider.swift; path = ../../../../LocationBased_old/LocationBased/Ports/NotificationProvider/Interface/MapKitPlaceSearchProvider.swift; sourceTree = "<group>"; };
 		A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchProvider.swift; sourceTree = "<group>"; };
+		A89F7C652AFBA58800956F41 /* MonitorControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorControlView.swift; sourceTree = "<group>"; };
+		A89F7C672AFBA61400956F41 /* MonitorContentObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorContentObserver.swift; sourceTree = "<group>"; };
+		A89F7C692AFBAFB500956F41 /* MonitoredRegionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredRegionCell.swift; sourceTree = "<group>"; };
 		A8C167182AF907CD007E1AC7 /* LocationBased.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationBased.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C1671B2AF907CD007E1AC7 /* LocationBasedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationBasedApp.swift; sourceTree = "<group>"; };
 		A8C1671D2AF907CD007E1AC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +73,24 @@
 			path = Interface;
 			sourceTree = "<group>";
 		};
+		A89F7C632AFBA55200956F41 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A89F7C642AFBA55800956F41 /* MonitorControl */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A89F7C642AFBA55800956F41 /* MonitorControl */ = {
+			isa = PBXGroup;
+			children = (
+				A89F7C652AFBA58800956F41 /* MonitorControlView.swift */,
+				A89F7C672AFBA61400956F41 /* MonitorContentObserver.swift */,
+				A89F7C692AFBAFB500956F41 /* MonitoredRegionCell.swift */,
+			);
+			path = MonitorControl;
+			sourceTree = "<group>";
+		};
 		A8C1670F2AF907CD007E1AC7 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +110,7 @@
 		A8C1671A2AF907CD007E1AC7 /* LocationBased */ = {
 			isa = PBXGroup;
 			children = (
+				A89F7C632AFBA55200956F41 /* UI */,
 				A8C1673D2AF920EF007E1AC7 /* Info.plist */,
 				A8C1673C2AF920E0007E1AC7 /* LocationBased.entitlements */,
 				A8C167332AF9189B007E1AC7 /* Main */,
@@ -243,9 +268,12 @@
 				A8C1672B2AF907F4007E1AC7 /* LocationBasedService.swift in Sources */,
 				A89F7C622AFA7DF500956F41 /* PlaceSearchProvider.swift in Sources */,
 				A8C167312AF910A7007E1AC7 /* LocationManagerProviding.swift in Sources */,
+				A89F7C662AFBA58800956F41 /* MonitorControlView.swift in Sources */,
+				A89F7C6A2AFBAFB500956F41 /* MonitoredRegionCell.swift in Sources */,
 				A8C167352AF918A5007E1AC7 /* Engine.swift in Sources */,
 				A89F7C602AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift in Sources */,
 				A8C1672F2AF91073007E1AC7 /* LocationManagerProvider.swift in Sources */,
+				A89F7C682AFBA61400956F41 /* MonitorContentObserver.swift in Sources */,
 				A8C1673B2AF91FF8007E1AC7 /* NotificationProviding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,7 +404,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LocationBased/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 666GZ2659S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LocationBased/Info.plist;
@@ -407,7 +435,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LocationBased/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 666GZ2659S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LocationBased/Info.plist;

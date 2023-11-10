@@ -9,6 +9,8 @@ import Foundation
 
 protocol LocationBasedServicing {
     func monitorLocation(latitude: Double, longitude: Double, name: String)
+    func stopMonitoring(name: String)
+    func monitoredRegions() -> [LocationRegion]
 }
 
 protocol HasLocationBasedService {
@@ -24,23 +26,21 @@ class LocationBasedService: LocationBasedServicing {
     }
     
     func monitorLocation(latitude: Double, longitude: Double, name: String) {
-        engine.notificationProvider.requestPermission { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                print("success")
-                
-                let locationRegion = LocationRegion(
-                    name: name,
-                    coordinates: LocationRegion.Coordinates(latitude: latitude, longitude: longitude),
-                    radius: engine.locationManagerProvider.maximumDistance)
-                engine.locationManagerProvider.startMonitoring(for: locationRegion)
-                engine.locationManagerProvider.delegate = self
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
+        let locationRegion = LocationRegion(
+            name: name,
+            coordinates: LocationRegion.Coordinates(latitude: latitude, longitude: longitude),
+            radius: engine.locationManagerProvider.maximumDistance)
+        engine.locationManagerProvider.startMonitoring(for: locationRegion)
+        engine.locationManagerProvider.delegate = self
+    }
+    
+    func stopMonitoring(name: String) {
+        guard let locationRegion = monitoredRegions().first(where: { $0.name == name } ) else { return }
+        engine.locationManagerProvider.stopMonitoring(for: locationRegion)
+    }
+    
+    func monitoredRegions() -> [LocationRegion] {
+        engine.locationManagerProvider.currentMonitored()
     }
 }
 

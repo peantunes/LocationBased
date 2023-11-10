@@ -23,11 +23,11 @@ class LocationManagerProvider: NSObject, LocationManagerProviding {
     }
     
     func startMonitoring(for locationRegion: LocationRegion) {
-        let location = CLLocationCoordinate2D(latitude: locationRegion.coordinates.latitude, longitude: locationRegion.coordinates.longitude)
-        let region = CLCircularRegion(center: location, radius: locationRegion.radius, identifier: locationRegion.name)
-        region.notifyOnEntry = true
-        region.notifyOnExit = true
-        locationManager.startMonitoring(for: region)
+        locationManager.startMonitoring(for: CLCircularRegion(locationRegion))
+    }
+    
+    func stopMonitoring(for locationRegion: LocationRegion) {
+        locationManager.stopMonitoring(for: CLCircularRegion(locationRegion))
     }
     
     func currentMonitored() -> [LocationRegion] {
@@ -58,5 +58,14 @@ extension LocationRegion {
 extension LocationRegion.Coordinates {
     init(_ location: CLLocationCoordinate2D) {
         self.init(latitude: location.latitude, longitude: location.longitude)
+    }
+}
+
+extension CLCircularRegion {
+    convenience init(_ locationRegion: LocationRegion) {
+        let location = CLLocationCoordinate2D(latitude: locationRegion.coordinates.latitude, longitude: locationRegion.coordinates.longitude)
+        self.init(center: location, radius: locationRegion.radius, identifier: locationRegion.name)
+        notifyOnEntry = true
+        notifyOnExit = true
     }
 }

@@ -22,6 +22,7 @@ protocol LocationManagerProviding: AnyObject {
     var maximumDistance: Double { get }
     
     func startMonitoring(for locationRegion: LocationRegion)
+    func stopMonitoring(for locationRegion: LocationRegion)
     func currentMonitored() -> [LocationRegion]
     func requestAccess()
 }
