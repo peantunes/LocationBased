@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A866FA272AFE848B00065D24 /* LocationMonitorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866FA262AFE848B00065D24 /* LocationMonitorManager.swift */; };
-		A89F7C602AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */; };
+		A866FC712AFFC93C00065D24 /* MapKitPlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A866FC702AFFC93C00065D24 /* MapKitPlaceSearchProvider.swift */; };
 		A89F7C622AFA7DF500956F41 /* PlaceSearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */; };
 		A89F7C662AFBA58800956F41 /* MonitorControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C652AFBA58800956F41 /* MonitorControlView.swift */; };
 		A89F7C682AFBA61400956F41 /* MonitorContentObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89F7C672AFBA61400956F41 /* MonitorContentObserver.swift */; };
@@ -27,7 +27,7 @@
 
 /* Begin PBXFileReference section */
 		A866FA262AFE848B00065D24 /* LocationMonitorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMonitorManager.swift; sourceTree = "<group>"; };
-		A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapKitPlaceSearchProvider.swift; path = ../../../../LocationBased_old/LocationBased/Ports/NotificationProvider/Interface/MapKitPlaceSearchProvider.swift; sourceTree = "<group>"; };
+		A866FC702AFFC93C00065D24 /* MapKitPlaceSearchProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapKitPlaceSearchProvider.swift; sourceTree = "<group>"; };
 		A89F7C612AFA7DF500956F41 /* PlaceSearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchProvider.swift; sourceTree = "<group>"; };
 		A89F7C652AFBA58800956F41 /* MonitorControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorControlView.swift; sourceTree = "<group>"; };
 		A89F7C672AFBA61400956F41 /* MonitorContentObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorContentObserver.swift; sourceTree = "<group>"; };
@@ -62,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				A89F7C5E2AFA7DC100956F41 /* Interface */,
-				A89F7C5F2AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift */,
 			);
 			path = PlaceSearchProvider;
 			sourceTree = "<group>";
@@ -146,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				A89F7C5D2AFA7DB200956F41 /* PlaceSearchProvider */,
+				A866FC702AFFC93C00065D24 /* MapKitPlaceSearchProvider.swift */,
 				A8C167382AF91DAE007E1AC7 /* NotificationProvider */,
 				A8C1672D2AF91066007E1AC7 /* LocationManager */,
 			);
@@ -271,11 +271,11 @@
 				A866FA272AFE848B00065D24 /* LocationMonitorManager.swift in Sources */,
 				A8C1672B2AF907F4007E1AC7 /* LocationBasedService.swift in Sources */,
 				A89F7C622AFA7DF500956F41 /* PlaceSearchProvider.swift in Sources */,
+				A866FC712AFFC93C00065D24 /* MapKitPlaceSearchProvider.swift in Sources */,
 				A8C167312AF910A7007E1AC7 /* LocationManagerProviding.swift in Sources */,
 				A89F7C662AFBA58800956F41 /* MonitorControlView.swift in Sources */,
 				A89F7C6A2AFBAFB500956F41 /* MonitoredRegionCell.swift in Sources */,
 				A8C167352AF918A5007E1AC7 /* Engine.swift in Sources */,
-				A89F7C602AFA7DCF00956F41 /* MapKitPlaceSearchProvider.swift in Sources */,
 				A8C1672F2AF91073007E1AC7 /* LocationManagerProvider.swift in Sources */,
 				A89F7C682AFBA61400956F41 /* MonitorContentObserver.swift in Sources */,
 				A8C1673B2AF91FF8007E1AC7 /* NotificationProviding.swift in Sources */,
