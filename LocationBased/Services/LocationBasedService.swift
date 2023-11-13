@@ -30,7 +30,7 @@ class LocationBasedService: LocationBasedServicing {
         let locationRegion = LocationRegion(
             name: name,
             coordinates: LocationRegion.Coordinates(latitude: latitude, longitude: longitude),
-            radius: distance, lastEvent: nil)
+            radius: distance, lastEvent: nil, eventState: .unknown)
         engine.locationManagerProvider.startMonitoring(for: locationRegion)
         engine.locationManagerProvider.delegate = self
     }

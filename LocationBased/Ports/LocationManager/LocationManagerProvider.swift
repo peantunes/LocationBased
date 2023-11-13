@@ -53,7 +53,7 @@ extension LocationRegion {
         guard let circularRegion = region as? CLCircularRegion else { return nil }
         self.init(name: circularRegion.identifier, coordinates: Coordinates.init(circularRegion.center), 
                   radius: circularRegion.radius,
-                  lastEvent: nil)
+                  lastEvent: nil, eventState: .unknown)
     }
 }
 

@@ -16,6 +16,7 @@ class LocationMonitorManager: LocationManagerProviding {
     init() {
         Task {
             await locationMonitor = CLMonitor("MyMonitor")
+            monitor()
         }
     }
     
@@ -49,7 +50,7 @@ class LocationMonitorManager: LocationManagerProviding {
             }
             
             locations.append(LocationRegion(name: id, coordinates: LocationRegion.Coordinates(condition.center), radius: condition.radius,
-                                            lastEvent: monitoredRegion.lastEvent.date))
+                                            lastEvent: monitoredRegion.lastEvent.date, eventState: .init(monitoredRegion.lastEvent.state)))
         }
         return locations
     }
@@ -80,7 +81,22 @@ class LocationMonitorManager: LocationManagerProviding {
                     print("none")
                 }
             }
+            print("end of the loop monitor")
         }
     }
     
+}
+
+@available(iOS 17.0, *)
+extension LocationRegion.State {
+    init(_ state: CLMonitor.Event.State) {
+        switch state {
+        case .satisfied:
+            self = .enter
+        case .unsatisfied:
+            self = .leave
+        @unknown default:
+            self = .unknown
+        }
+    }
 }

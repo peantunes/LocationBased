@@ -21,7 +21,6 @@ struct SearchResult: Identifiable {
 
 struct MonitorControlContentView: View {
     @ObservedObject private var monitorObserver: MonitorContentObserver
-    @State private var searchText = ""
     @FocusState private var isFocused: Bool
     
     init(monitorObserver: MonitorContentObserver = MonitorContentObserver(engine: Engine.shared)) {
@@ -46,7 +45,7 @@ struct MonitorControlContentView: View {
                 Text("Radius: \(monitorObserver.distance, format: .number)")
                 Slider(value: $monitorObserver.distance, in: 10...monitorObserver.maximumDistance, step: 1)
                 HStack {
-                    TextField("places", text: $searchText)
+                    TextField("places", text: $monitorObserver.searchText)
                         .focused($isFocused)
                         .textFieldStyle(.roundedBorder)
                         .onSubmit(search)
@@ -83,7 +82,7 @@ struct MonitorControlContentView: View {
     }
     
     private func search() {
-        monitorObserver.searchPlaces(text: searchText)
+        monitorObserver.searchPlaces(text: monitorObserver.searchText)
         isFocused = false
     }
 }

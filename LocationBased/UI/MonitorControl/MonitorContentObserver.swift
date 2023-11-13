@@ -32,8 +32,11 @@ class MonitorContentObserver: ObservableObject {
     }
     
     func refreshResults() {
-        Task {
-            places = await engine.locationBasedService.monitoredRegions()
+        Task() {
+            let newPlaces = await engine.locationBasedService.monitoredRegions()
+            DispatchQueue.main.sync {
+                places = newPlaces
+            }
         }
     }
     

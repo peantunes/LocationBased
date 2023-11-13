@@ -12,10 +12,16 @@ struct LocationRegion {
         let latitude: Double
         let longitude: Double
     }
+    enum State: String {
+        case enter
+        case leave
+        case unknown
+    }
     let name: String
     let coordinates: Coordinates
     let radius: Double
     let lastEvent: Date?
+    let eventState: State
 }
 
 struct LocationEvent {
@@ -30,6 +36,8 @@ protocol LocationManagerProviding: AnyObject {
     func stopMonitoring(for locationRegion: LocationRegion)
     func currentMonitored() async -> [LocationRegion]
     func requestAccess()
+//    func addObserver(observer: LocationManagerDelegate)
+//    func removeObserver(observer: LocationManagerDelegate)
 }
 
 protocol LocationManagerDelegate: AnyObject {
