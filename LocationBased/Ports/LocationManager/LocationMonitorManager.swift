@@ -16,11 +16,14 @@ class LocationMonitorManager: LocationManagerProviding {
     init() {
         Task {
             await locationMonitor = CLMonitor("MyMonitor")
-            monitor()
         }
     }
     
-    var delegate: LocationManagerDelegate?
+    var delegate: LocationManagerDelegate? {
+        didSet {
+            monitor()
+        }
+    }
     
     var maximumDistance: Double {
         2000 // x§§CLLocationManager().maximumRegionMonitoringDistance
@@ -56,7 +59,7 @@ class LocationMonitorManager: LocationManagerProviding {
     }
     
     func requestAccess() {
-        CLLocationManager().requestAlwaysAuthorization()
+        CLLocationManager().requestWhenInUseAuthorization()
     }
     
     private func monitor() {

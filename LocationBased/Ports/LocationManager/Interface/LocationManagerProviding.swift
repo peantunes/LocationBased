@@ -13,8 +13,8 @@ struct LocationRegion {
         let longitude: Double
     }
     enum State: String {
-        case enter
-        case leave
+        case enter = "inside"
+        case leave = "away"
         case unknown
     }
     let name: String

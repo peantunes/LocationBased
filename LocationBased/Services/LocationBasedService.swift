@@ -24,6 +24,7 @@ class LocationBasedService: LocationBasedServicing {
     
     init(engine: Engine) {
         self.engine = engine
+        engine.locationManagerProvider.delegate = self
     }
     
     func monitorLocation(latitude: Double, longitude: Double, name: String, distance: Double) {
@@ -32,7 +33,6 @@ class LocationBasedService: LocationBasedServicing {
             coordinates: LocationRegion.Coordinates(latitude: latitude, longitude: longitude),
             radius: distance, lastEvent: nil, eventState: .unknown)
         engine.locationManagerProvider.startMonitoring(for: locationRegion)
-        engine.locationManagerProvider.delegate = self
     }
     
     func stopMonitoring(name: String) {
@@ -56,7 +56,8 @@ extension LocationBasedService: LocationManagerDelegate {
     func exitRegion(_ name: String, duration: TimeInterval?) {
         var timeSpent = ""
         if let duration {
-            timeSpent = " after \(duration/3600) hours"
+            let formatter = DateComponentsFormatter()
+            timeSpent = " after \(formatter.string(from: abs(duration)) ?? "")"
         }
         engine.notificationProvider.sendNotification(with: .init(title: "Leaving region \(name)\(timeSpent)", body: "Bye bye"))
     }
