@@ -7,23 +7,6 @@
 
 import Foundation
 
-struct LocationRegion {
-    struct Coordinates {
-        let latitude: Double
-        let longitude: Double
-    }
-    enum State: String {
-        case enter = "inside"
-        case leave = "away"
-        case unknown
-    }
-    let name: String
-    let coordinates: Coordinates
-    let radius: Double
-    let lastEvent: Date?
-    let eventState: State
-}
-
 struct LocationEvent {
     
 }

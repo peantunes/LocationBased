@@ -55,11 +55,11 @@ class LocationMonitorManager: LocationManagerProviding {
             locations.append(LocationRegion(name: id, coordinates: LocationRegion.Coordinates(condition.center), radius: condition.radius,
                                             lastEvent: monitoredRegion.lastEvent.date, eventState: .init(monitoredRegion.lastEvent.state)))
         }
-        return locations
+        return locations.sorted(by: { $0.lastEvent ?? .now > $1.lastEvent ?? .now })
     }
     
     func requestAccess() {
-        CLLocationManager().requestWhenInUseAuthorization()
+        CLLocationManager().requestAlwaysAuthorization()
     }
     
     private func monitor() {

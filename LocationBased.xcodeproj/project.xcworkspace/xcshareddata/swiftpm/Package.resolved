@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "radar-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/radarlabs/radar-sdk-ios.git",
+      "state" : {
+        "revision" : "af06554fa2baeb22edbdbc04a361755fe0d564ae",
+        "version" : "3.8.10"
+      }
+    }
+  ],
+  "version" : 2
+}
