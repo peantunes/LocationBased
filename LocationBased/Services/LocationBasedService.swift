@@ -7,7 +7,6 @@
 
 import Foundation
 import WidgetKit
-import RadarSDK
 
 protocol LocationBasedServicing {
     func monitorLocation(latitude: Double, longitude: Double, name: String, distance: Double)
@@ -28,10 +27,6 @@ class LocationBasedService: NSObject, LocationBasedServicing {
         self.engine = engine
         super.init()
         engine.locationManagerProvider.delegate = self
-        Radar.initialize(publishableKey: "prj_test_pk_6e79a9c4b3edc02e3ee477a660b72188aee1f679")
-        
-        Radar.startTracking(trackingOptions: RadarTrackingOptions.presetResponsive)
-        Radar.setDelegate(self)
     }
     
     func monitorLocation(latitude: Double, longitude: Double, name: String, distance: Double) {
@@ -57,43 +52,17 @@ class LocationBasedService: NSObject, LocationBasedServicing {
                let encoded = try? JSONEncoder().encode(inside) {
                 engine.keyValueStoreProvider.setValue(encoded, forKey: "currentLocation")
             }
-            completion(regions)
+            DispatchQueue.main.async {
+                completion(regions)
+            }
         }
     }
 }
-
-extension LocationBasedService: RadarDelegate {
-    
-    func didReceiveEvents(_ events: [RadarEvent], user: RadarUser?) {
-        print(user)
-        events.forEach { radar in
-            engine.notificationProvider.sendNotification(with: .init(title: "Approaching Radar region \(radar.description)", body: "By Radar"))
-        }
-    }
-    
-    func didUpdateLocation(_ location: CLLocation, user: RadarUser) {
-    
-    }
-    
-    func didUpdateClientLocation(_ location: CLLocation, stopped: Bool, source: RadarLocationSource) {
-        
-    }
-    
-    func didFail(status: RadarStatus) {
-        
-    }
-    
-    func didLog(message: String) {
-        
-    }
-}
-
-
 
 extension LocationBasedService: LocationManagerDelegate {
     
     func enterRegion(_ name: String) {
-        engine.notificationProvider.sendNotification(with: .init(title: "Approaching region \(name)", body: "Take advantage of the region you are approaching"))
+        engine.notificationProvider.sendNotification(with: .init(id: UUID().uuidString, title: "Approaching region \(name)", body: "Take advantage of the region you are approaching"))
         reloadContent()
     }
     
@@ -103,7 +72,7 @@ extension LocationBasedService: LocationManagerDelegate {
             let formatter = DateComponentsFormatter()
             timeSpent = " after \(formatter.string(from: abs(duration)) ?? "")"
         }
-        engine.notificationProvider.sendNotification(with: .init(title: "Leaving region \(name)\(timeSpent)", body: "Bye bye"))
+        engine.notificationProvider.sendNotification(with: .init(id: UUID().uuidString, title: "Leaving region \(name)\(timeSpent)", body: "Bye bye"))
         reloadContent()
         
     }

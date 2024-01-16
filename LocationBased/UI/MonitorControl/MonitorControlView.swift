@@ -29,13 +29,31 @@ struct MonitorControlContentView: View {
     
     var body: some View {
         VStack {
-            Text("Current monitorred areas")
+            Text("Current monitorred areas (\(monitorObserver.places.count))")
             List {
                 ForEach(monitorObserver.places) { item in
                     MonitoredRegionCell(location: item)
                 }
                 .onDelete(perform: monitorObserver.delete(at:))
                 
+            }
+            .refreshable {
+                monitorObserver.refreshResults()
+            }
+            HStack {
+                Text("Notifications (\(monitorObserver.localNotifications.count))")
+                Spacer()
+                Button {
+                    monitorObserver.showDeliveredNotifications = true
+                } label: {
+                    Text("Delivered")
+                }
+            }
+            List {
+                ForEach(monitorObserver.localNotifications) { notif in
+                    MonitoredRegionCell(location: LocationRegion(name: notif.title, coordinates: notif.region?.coordinates ?? .init(latitude: 0, longitude: 0), radius: notif.region?.radius ?? 0, lastEvent: nil, eventState: .unknown))
+                }
+                .onDelete(perform: monitorObserver.removeNotification(at:))
             }
             .refreshable {
                 monitorObserver.refreshResults()
@@ -69,6 +87,13 @@ struct MonitorControlContentView: View {
                         }
                         .buttonStyle(.bordered)
                     }
+                }
+            }
+        })
+        .sheet(isPresented: $monitorObserver.showDeliveredNotifications, content: {
+            List {
+                ForEach(monitorObserver.deliveredNotification) { notif in
+                    MonitoredRegionCell(location: LocationRegion(name: notif.title, coordinates: notif.region?.coordinates ?? .init(latitude: 0, longitude: 0), radius: notif.region?.radius ?? 0, lastEvent: nil, eventState: .unknown))
                 }
             }
         })
