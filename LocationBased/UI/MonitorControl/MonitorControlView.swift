@@ -22,6 +22,7 @@ struct SearchResult: Identifiable {
 struct MonitorControlContentView: View {
     @ObservedObject private var monitorObserver: MonitorContentObserver
     @FocusState private var isFocused: Bool
+    @State private var activityModal = false
     
     init(monitorObserver: MonitorContentObserver = MonitorContentObserver(engine: Engine.shared)) {
         self.monitorObserver = monitorObserver
@@ -29,7 +30,20 @@ struct MonitorControlContentView: View {
     
     var body: some View {
         VStack {
-            Text("Current monitorred areas (\(monitorObserver.places.count))")
+            ZStack {
+                Text("Current monitorred areas (\(monitorObserver.places.count))")
+                HStack {
+                    if let lastActivity = monitorObserver.lastActivity {
+                        Text(lastActivity.type.image)
+                    }
+                    Spacer()
+                    Button {
+                        activityModal.toggle()
+                    } label: {
+                        Text("Moving")
+                    }
+                }
+            }
             List {
                 ForEach(monitorObserver.places) { item in
                     MonitoredRegionCell(location: item)
@@ -72,6 +86,9 @@ struct MonitorControlContentView: View {
                 }
             }
         }
+        .sheet(isPresented: $activityModal, content: {
+            ListOfActivitiesView(engine: Engine.shared)
+        })
         .sheet(item: $monitorObserver.searchResult, content: { results in
             List {
                 ForEach(results.locations) { item in
@@ -109,6 +126,25 @@ struct MonitorControlContentView: View {
     private func search() {
         monitorObserver.searchPlaces(text: monitorObserver.searchText)
         isFocused = false
+    }
+}
+
+extension ActivityInfo.ActivityType {
+    var image: Image {
+        switch self {
+        case .walking:
+            return Image(systemName: "figure.walk")
+        case .automotive:
+            return Image(systemName: "car")
+        case .stationary:
+            return Image(systemName: "figure.stand")
+        case .cycling:
+            return Image(systemName: "bicycle")
+        case .running:
+            return Image(systemName: "figure.run")
+        case .unknown:
+            return Image(systemName: "x.circle")
+        }
     }
 }
 

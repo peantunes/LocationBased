@@ -8,7 +8,7 @@
 import Foundation
 
 class MonitorContentObserver: ObservableObject {
-    typealias Engine = HasPlaceSearchProvider & HasLocationBasedService & HasNotificationProvider & HasLocationManagerProvider
+    typealias Engine = HasPlaceSearchProvider & HasLocationBasedService & HasNotificationProvider & HasLocationManagerProvider & HasUserActivityProvider
     
     @Published var places: [LocationRegion] = []
     @Published var localNotifications: [NotificationMessage] = []
@@ -17,11 +17,16 @@ class MonitorContentObserver: ObservableObject {
     @Published var searchResult: SearchResult?
     @Published var distance: Double = 100.0
     @Published var showDeliveredNotifications = false
+    @Published var lastActivity: ActivityInfo? = nil
     
     private let engine: Engine
     
     init(engine: Engine) {
         self.engine = engine
+        engine.userActivityProvider.delegate = self
+        if engine.userActivityProvider.startMonitoring() {
+            
+        }
     }
     
     var maximumDistance: Double {
@@ -90,6 +95,12 @@ class MonitorContentObserver: ObservableObject {
         engine.notificationProvider.deliveredNotifications { notifications in
             self.deliveredNotification = notifications
         }
+    }
+}
+
+extension MonitorContentObserver: UserActivityDelegate {
+    func currentActivity(_ activity: ActivityInfo) {
+        lastActivity = activity
     }
 }
 

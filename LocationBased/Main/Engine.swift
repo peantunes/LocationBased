@@ -18,6 +18,7 @@ class Engine: ObservableObject {
     lazy var notificationProvider: NotificationProviding = NotificationProvider()
     lazy var placeSearchProvider: PlaceSearchProvider = MapKitPlaceSearchProvider()
     lazy var keyValueStoreProvider: KeyValueStoreProviding = KeyValueStoreProvider()
+    lazy var userActivityProvider: UserActivityProviding = UserActivityProvider()
     
     lazy var locationBasedService: LocationBasedServicing = LocationBasedService(engine: self)
     
@@ -33,3 +34,4 @@ extension Engine: HasLocationBasedService { }
 extension Engine: HasNotificationProvider { }
 extension Engine: HasPlaceSearchProvider { }
 extension Engine: HasKeyValueStore { }
+extension Engine: HasUserActivityProvider { }

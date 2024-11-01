@@ -10,5 +10,7 @@
 	<string>Nearby stations</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>To notify the locations you are nearby</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Identify the type of moving</string>
 </dict>
 </plist>
